@@ -14,3 +14,7 @@ export function getInitialData () {
         questions
     }));
 }
+
+export function saveQuestion (info) {
+    return _saveQuestion(info)
+}

@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Question from './Question';
-// import { Card, CardImg, CardText, CardBody, CardLink, CardTitle, CardSubtitle, Container, Row, Col, Nav, NavItem, NavLink} from 'reactstrap';
-import Navbar from './Navbar';
 
 class Dashboard extends Component {
     render() {
         console.log(this.props);
         return (
-
-
-
             <div>
-                <Navbar/>
-
                 <div className='projectContainer'>
                     <div className='container'>
                         <div className='row justify-content-center'>

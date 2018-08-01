@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import Question from './Question';
-// import { } from 'reactstrap';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {handleAddQuestion} from '../actions/questions';
+import {Redirect} from 'react-router-dom';
+
 
 class NewQuestion extends Component {
 
@@ -29,22 +30,24 @@ class NewQuestion extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        // todo: redirect to the home view if submitted
+        const {optionOneText, optionTwoText} = this.state;
+        const {dispatch} = this.props;
 
-        const { optionOneText, optionTwoText } = this.state;
-
-        // todo: add question to store
-
-        console.log(`New Question: ${optionOneText} OR ${optionTwoText}`);
+        dispatch(handleAddQuestion(optionOneText, optionTwoText));
 
         this.setState(() => ({
             optionOneText: '',
-            optionTwoText: ''
+            optionTwoText: '',
+            toDashboard: true
         }));
     };
 
     render() {
-        const { optionOneText, optionTwoText } = this.state;
+        const {optionOneText, optionTwoText, toDashboard} = this.state;
+
+        if (toDashboard === true) {
+            return <Redirect to='/' />;
+        }
 
         return (
             <div>
@@ -52,12 +55,12 @@ class NewQuestion extends Component {
                 <form className='new-question' onSubmit={this.handleSubmit}>
                     <input
                         placeholder='Enter option one text here...'
-                        value={ optionOneText }
+                        value={optionOneText}
                         onChange={this.handleOptionOneTextChange}
                     />
                     <input
                         placeholder='Enter option two text here...'
-                        value={ optionTwoText }
+                        value={optionTwoText}
                         onChange={this.handleOptionTwoTextChange}
                     />
                     <button
@@ -80,4 +83,4 @@ class NewQuestion extends Component {
 //     }
 // }
 
-export default NewQuestion;
+export default connect()(NewQuestion);

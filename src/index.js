@@ -9,8 +9,6 @@ import middleware from './middleware';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-
-
 import App from './components/App';
 
 let store = createStore(reducer, middleware);
