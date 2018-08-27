@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Question from './Question';
-import Navbar from "./Navbar";
+import {handleAddQuestionAnswer} from '../actions/questions';
 
 
 class QuestionPoll extends Component {
 
-    handleSubmit() {
+    state = {
+        optionSelected: ''
+    };
 
+    handleSubmit(e, questionId) {
+        e.preventDefault();
+
+        const {dispatch} = this.props;
+        const {optionSelected} = this.state;
+
+        dispatch(handleAddQuestionAnswer(questionId, optionSelected));
+
+        this.setState(() => ({
+            optionSelected: ''
+        }));
     }
 
+    handleInputChange = (e) => {
+        const text = e.target.value;
+
+        this.setState(() => ({
+            optionSelected: text
+        }));
+    };
+
     render() {
-
-        console.log(this.props);
-
+        const {optionSelected} = this.state;
         const {id, question, author} = this.props;
 
         return (
@@ -23,7 +41,7 @@ class QuestionPoll extends Component {
                         <div className='row justify-content-center'>
                             <div className='col-sm-8'>
                                 <div className='card'>
-                                    <div className='card-header bold'>{author.name} asks...</div>
+                                    <div className='card-header bold'>{author.name} asks would you rather...</div>
                                     <div className='card-body'>
                                         <div className='container'>
                                             <div className='row justify-content-center'>
@@ -34,19 +52,19 @@ class QuestionPoll extends Component {
                                                 </div>
                                                 <div className='col-sm-8'>
                                                     <div className='question-info'>
-                                                        <h3 className='center'><strong>Would You
-                                                            Rather...</strong></h3>
-                                                        <form>
+                                                        <form onSubmit={(e) => this.handleSubmit(e, id)}>
                                                             <div className="form-check">
                                                                 <input className="form-check-input"
                                                                        type="radio"
                                                                        name="questionPoll"
                                                                        id="optionOne"
-                                                                       value="optionOne" checked/>
+                                                                       value="optionOne"
+                                                                       onChange={this.handleInputChange}
+                                                                />
                                                                 <label
                                                                     className="form-check-label"
                                                                     htmlFor="optionOne">
-                                                                    {question.optionOneText}
+                                                                    {question.optionOne.text}
                                                                 </label>
                                                             </div>
                                                             <div className="form-check">
@@ -54,15 +72,21 @@ class QuestionPoll extends Component {
                                                                        type="radio"
                                                                        name="questionPoll"
                                                                        id="optionTwo"
-                                                                       value="optionTwo"/>
+                                                                       value="optionTwo"
+                                                                       onChange={this.handleInputChange}
+                                                                />
                                                                 <label
                                                                     className="form-check-label"
                                                                     htmlFor="exampleRadios2">
-                                                                    {question.optionTwoText}
+                                                                    {question.optionTwo.text}
                                                                 </label>
                                                             </div>
-                                                            <button type="submit"
-                                                                    className="btn-sm btn-primary">Submit
+                                                            <button
+                                                                className='btn btn-outline-primary'
+                                                                type='submit'
+                                                                disabled={optionSelected === ''}
+                                                            >
+                                                                Submit
                                                             </button>
                                                         </form>
                                                     </div>
@@ -91,7 +115,8 @@ function mapStateToProps({authedUser, questions, users}, props) {
     return {
         id,
         question: specificQuestion,
-        author: users[specificQuestion['author']]
+        author: users[specificQuestion['author']],
+        authedUser
     }
 }
 

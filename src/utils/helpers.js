@@ -1,4 +1,5 @@
 import includes from 'core-js/fn/array/includes';
+import { createBrowserHistory } from 'history';
 
 export function formatDate (timestamp) {
     const d = new Date(timestamp);
@@ -17,7 +18,7 @@ export function formatQuestion (question, author, authedUser) {
         avatar: avatarURL,
         optionOne,
         optionTwo,
-        hasVoted: includes(optionOne, authedUser) || includes(optionTwo, authedUser)
+        hasVoted: includes(optionOne.votes, authedUser) || includes(optionTwo.votes, authedUser)
         // likes: likes.length,
         // replies: replies.length,
         // hasLiked: likes.includes(authedUser),
@@ -28,3 +29,4 @@ export function formatQuestion (question, author, authedUser) {
     }
 }
 
+export const history = createBrowserHistory();

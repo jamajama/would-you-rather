@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { formatQuestion, formatDate } from "../utils/helpers";
-// import { Card, CardImg, CardText, CardBody, CardLink, CardTitle, CardSubtitle, CardHeader, Container, Row, Col, Button} from 'reactstrap';
+import { formatQuestion } from "../utils/helpers";
 import {Link} from 'react-router-dom';
 
 class Question extends Component {
-
-    // toQuestion = (e, id) => {
-    //     e.preventDefault();
-    //
-    //     console.log(id);
-    //
-    //     return <Redirect to={'/question/' + id} />;
-    // };
-
     render() {
         const { question } = this.props;
 
@@ -21,9 +11,15 @@ class Question extends Component {
             return <p>This question doesn't exist.</p>
         }
 
-        const {
-            name, id, timestamp, avatar, optionOne, optionTwo, hasVoted
-        } = question;
+        const { name, id, avatar, optionOne, optionTwo, hasVoted } = question;
+
+        console.log(question);
+
+        if (this.props.questionsToShow === 'answered' && hasVoted !== true) {
+            return false;
+        } else if (this.props.questionsToShow === 'unanswered' && hasVoted === true) {
+            return false;
+        }
 
         return (
             <div className='margin-top-10'>
@@ -38,7 +34,6 @@ class Question extends Component {
                                 <div className='col-sm-8'>
                                     <div className='question-info'>
                                         <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
-
                                         <Link to={`/question/${id}`} className='center'>
                                             <button className='btn btn-outline-primary reset-vertical-margin '>
                                                 View Poll
@@ -55,12 +50,13 @@ class Question extends Component {
     }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ authedUser, users, questions }, { id, questionsToShow }) {
     const question = questions[id];
 
     return {
         authedUser,
-        question: formatQuestion(question, users[question.author], authedUser)
+        question: formatQuestion(question, users[question.author], authedUser),
+        questionsToShow
     }
 }
 

@@ -1,24 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Question from './Question';
+import {handleGetQuestions} from "../actions/questions";
 
 class Dashboard extends Component {
+
+    componentDidMount() {
+        this.props.dispatch(handleGetQuestions());
+    }
+
+    state = {
+        'questionsToShow': 'unanswered',
+        'activeTab': 'unanswered'
+    };
+
+    handleTabChange = (e, tab) => {
+        this.setState(() => ({
+            questionsToShow: tab,
+            activeTab: tab
+        }));
+    };
+
     render() {
-        console.log(this.props);
+        const { questionsToShow, activeTab } = this.state;
+
         return (
             <div>
                 <div className='projectContainer'>
                     <div className='container'>
                         <div className='row justify-content-center'>
                             <div className='col-sm-8'>
+                                <div className='center'>
+                                    <button type='button' className={"btn btn-info " + (activeTab === 'unanswered' ? 'active' : null)} onClick={(e) => this.handleTabChange(e, 'unanswered')}>Unanswered Questions</button>
+                                    <button type='button' className={"btn btn-info " + (activeTab === 'answered' ? 'active' : null)} onClick={(e) => this.handleTabChange(e, 'answered')}>Answered Questions</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='row justify-content-center'>
+                            <div className='col-sm-8'>
                                 { this.props.questionIds.map((id) => {
                                     return (
-                                        <Question id={id} />
+                                        <Question key={id} id={id} questionsToShow={questionsToShow} />
                                     )
                                 })}
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         )

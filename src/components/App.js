@@ -1,47 +1,49 @@
-import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { handleInitialData } from '../actions/shared';
+import React, {Component, Fragment} from 'react';
+import {BrowserRouter as Router, Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Dashboard from './Dashboard';
 import NewQuestion from './NewQuestion';
 import QuestionPoll from './QuestionPoll';
+import QuestionPollResults from './QuestionPollResults';
 import Navbar from './Navbar';
-import LoadingBar from 'react-redux-loading';
+import Login from './Login';
+import PrivateRoute from './PrivateRoute';
 
 class App extends Component {
-    componentDidMount() {
-        this.props.dispatch(handleInitialData());
-    }
-
     render() {
         return (
             <Router>
-
                 <Fragment>
-                    {/*<LoadingBar/>*/}
-                    <Navbar />
+                    {this.props.authenticated == null
+                        ? null
+                        : <Navbar/>
+                    }
                     <div>
                         {this.props.loading === true
                             ? null
                             : <div>
-                                <Route path='/' exact component={Dashboard} />
-                                <Route path='/question/:id' component={QuestionPoll} />
-                                <Route path='/new' component={NewQuestion} />
+                                <Switch>
+                                    <Route path="/login" exact component={Login} />
+                                    <PrivateRoute path='/' exact component={Dashboard} isAuthenticated={this.props.authenticated} />
+                                    <PrivateRoute path='/question/:id' component={QuestionPoll} isAuthenticated={this.props.authenticated} />
+                                    <PrivateRoute path='/question/:id/results' component={QuestionPollResults} isAuthenticated={this.props.authenticated} />
+                                    <PrivateRoute path='/new' component={NewQuestion} isAuthenticated={this.props.authenticated} />
+                                </Switch>
                             </div>
                         }
 
                     </div>
                 </Fragment>
             </Router>
-
-
         );
     }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ users, login}) {
     return {
-        loading: authedUser === null
+        loading: users === null,
+        loggedInUser: login.loggedInUser,
+        authenticated: login.authenticated
     }
 }
 

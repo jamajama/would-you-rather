@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {handleAddQuestion} from '../actions/questions';
 import {Redirect} from 'react-router-dom';
 
-
 class NewQuestion extends Component {
 
     state = {
@@ -75,12 +74,5 @@ class NewQuestion extends Component {
         )
     }
 }
-
-// function mapStateToProps ({ questions }) {
-//     return {
-//         questionIds: Object.keys(questions)
-//             .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
-//     }
-// }
 
 export default connect()(NewQuestion);
