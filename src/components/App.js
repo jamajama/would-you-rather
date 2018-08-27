@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Dashboard from './Dashboard';
 import NewQuestion from './NewQuestion';
@@ -7,7 +7,7 @@ import QuestionPoll from './QuestionPoll';
 import QuestionPollResults from './QuestionPollResults';
 import Navbar from './Navbar';
 import Login from './Login';
-import PrivateRoute from './PrivateRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 class App extends Component {
     render() {
@@ -16,18 +16,18 @@ class App extends Component {
                 <Fragment>
                     {this.props.authenticated == null
                         ? null
-                        : <Navbar/>
+                        : <Navbar loggedInUser={this.props.loggedInUser} />
                     }
                     <div>
                         {this.props.loading === true
                             ? null
                             : <div>
                                 <Switch>
-                                    <Route path="/login" exact component={Login} />
-                                    <PrivateRoute path='/' exact component={Dashboard} isAuthenticated={this.props.authenticated} />
-                                    <PrivateRoute path='/question/:id' component={QuestionPoll} isAuthenticated={this.props.authenticated} />
-                                    <PrivateRoute path='/question/:id/results' component={QuestionPollResults} isAuthenticated={this.props.authenticated} />
-                                    <PrivateRoute path='/new' component={NewQuestion} isAuthenticated={this.props.authenticated} />
+                                    <ProtectedRoute path='/' exact component={Dashboard} isAuthenticated={this.props.authenticated} />
+                                    <ProtectedRoute path='/question/:id' component={QuestionPoll} isAuthenticated={this.props.authenticated} />
+                                    <ProtectedRoute path='/question/:id/results' component={QuestionPollResults} isAuthenticated={this.props.authenticated} />
+                                    <ProtectedRoute path='/new' component={NewQuestion} isAuthenticated={this.props.authenticated} />
+                                    <Route path="/login" exact component={withRouter(Login)} />
                                 </Switch>
                             </div>
                         }
@@ -41,7 +41,7 @@ class App extends Component {
 
 function mapStateToProps({ users, login}) {
     return {
-        loading: users === null,
+        loading: false,
         loggedInUser: login.loggedInUser,
         authenticated: login.authenticated
     }

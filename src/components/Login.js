@@ -42,7 +42,10 @@ class Login extends Component {
         const {redirectToReferrer} = this.state;
 
         if (redirectToReferrer === true) {
-            return <Redirect to={from} />
+
+            console.log(from);
+
+            return <Redirect to='/' />
         }
 
         return (

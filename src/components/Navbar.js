@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Navbar () {
+const Navbar = (loggedInUser) => {
     return (
         <div>
             <nav className="navbar navbar-expand navbar-light bg-light">
@@ -13,11 +13,13 @@ export default function Navbar () {
                             <NavLink to='/leaderboard' exact activeClassName='active' className="nav-item nav-link">Leaderboard</NavLink>
                         </ul>
 
-                        <span className="navbar-text margin-left-100 margin-right-25 text-info">Hello LoggedInUser</span>
+                        <span className="navbar-text margin-left-100 margin-right-25 text-info">Hello {loggedInUser.loggedInUser.name}</span>
                         <span className="navbar-nav"><button className="btn-sm btn-info">Logout</button></span>
                     </div>
                 </div>
             </nav>
         </div>
     )
-}
+};
+
+export default Navbar;
