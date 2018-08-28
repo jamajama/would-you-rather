@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-
 class QuestionPollResults extends Component {
     render() {
         console.log(this.props);
@@ -27,6 +26,5 @@ function mapStateToProps({authedUser, questions, users}, props) {
         author: users[specificQuestion['author']]
     }
 }
-
 
 export default connect(mapStateToProps)(QuestionPollResults);

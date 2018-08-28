@@ -7,8 +7,7 @@ import {handleLoginUser} from '../actions/login';
 class Login extends Component {
 
     state = {
-        userSelected: '',
-        redirectToReferrer: false,
+        userSelected: ''
     };
 
     componentDidMount() {
@@ -27,25 +26,17 @@ class Login extends Component {
         e.preventDefault();
 
         this.props.dispatch(handleLoginUser(this.state.userSelected));
-
-        this.setState(() => ({
-            redirectToReferrer: true
-        }));
     };
 
     render() {
         if (!this.props.users) {
-            return <div />;
+            return <div/>;
         }
 
         const {from} = this.props.location.state || {from: {pathname: '/'}};
-        const {redirectToReferrer} = this.state;
 
-        if (redirectToReferrer === true) {
-
-            console.log(from);
-
-            return <Redirect to='/' />
+        if (this.props.isAuthed) {
+            return <Redirect to={from}/>;
         }
 
         return (
@@ -59,17 +50,21 @@ class Login extends Component {
                         </div>
                         <form id="Login">
                             <div className="form-group">
-                                <select className="form-control" id="userId" onChange={(e) => this.handleChange(e)}>
+                                <select className="form-control" id="userId"
+                                        onChange={(e) => this.handleChange(e)}>
                                     <option></option>
                                     {
                                         Object.keys(this.props.users).map((user) => {
-                                            return <option key={this.props.users[user].id} value={this.props.users[user].id}>{this.props.users[user].name}</option>
+                                            return <option key={this.props.users[user].id}
+                                                           value={this.props.users[user].id}>{this.props.users[user].name}</option>
                                         })
                                     }
                                 </select>
                             </div>
 
-                            <button type="submit" className="btn btn-primary" onClick={(e) => this.handleSubmit(e)}>Login</button>
+                            <button type="submit" className="btn btn-primary"
+                                    onClick={(e) => this.handleSubmit(e)}>Login
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -78,10 +73,11 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps({users}) {
+function mapStateToProps({users, login}) {
     return {
         loading: users === null,
-        users
+        users,
+        isAuthed: login.authenticated
     }
 }
 

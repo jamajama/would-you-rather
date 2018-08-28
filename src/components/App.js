@@ -16,18 +16,23 @@ class App extends Component {
                 <Fragment>
                     {this.props.authenticated == null
                         ? null
-                        : <Navbar loggedInUser={this.props.loggedInUser} />
+                        : <Navbar loggedInUser={this.props.loggedInUser}/>
                     }
                     <div>
                         {this.props.loading === true
                             ? null
                             : <div>
                                 <Switch>
-                                    <ProtectedRoute path='/' exact component={Dashboard} isAuthenticated={this.props.authenticated} />
-                                    <ProtectedRoute path='/question/:id' component={QuestionPoll} isAuthenticated={this.props.authenticated} />
-                                    <ProtectedRoute path='/question/:id/results' component={QuestionPollResults} isAuthenticated={this.props.authenticated} />
-                                    <ProtectedRoute path='/new' component={NewQuestion} isAuthenticated={this.props.authenticated} />
-                                    <Route path="/login" exact component={withRouter(Login)} />
+                                    <ProtectedRoute path='/' exact component={Dashboard}
+                                                    isAuthenticated={this.props.authenticated}/>
+                                    <ProtectedRoute path='/question/:id' component={QuestionPoll}
+                                                    isAuthenticated={this.props.authenticated}/>
+                                    <ProtectedRoute path='/question/:id/results'
+                                                    component={QuestionPollResults}
+                                                    isAuthenticated={this.props.authenticated}/>
+                                    <ProtectedRoute path='/new' component={NewQuestion}
+                                                    isAuthenticated={this.props.authenticated}/>
+                                    <Route path="/login" exact component={withRouter(Login)}/>
                                 </Switch>
                             </div>
                         }
@@ -39,7 +44,7 @@ class App extends Component {
     }
 }
 
-function mapStateToProps({ users, login}) {
+function mapStateToProps({users, login}) {
     return {
         loading: false,
         loggedInUser: login.loggedInUser,

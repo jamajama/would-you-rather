@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {handleAddQuestionAnswer} from '../actions/questions';
 
-
 class QuestionPoll extends Component {
 
     state = {
@@ -100,12 +99,8 @@ class QuestionPoll extends Component {
                     </div>
                 </div>
             </div>
-
-
         )
-
     }
-
 }
 
 function mapStateToProps({authedUser, questions, users}, props) {
@@ -119,6 +114,5 @@ function mapStateToProps({authedUser, questions, users}, props) {
         authedUser
     }
 }
-
 
 export default connect(mapStateToProps)(QuestionPoll);

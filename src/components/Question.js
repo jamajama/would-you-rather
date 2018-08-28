@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { formatQuestion } from "../utils/helpers";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {formatQuestion} from "../utils/helpers";
 import {Link} from 'react-router-dom';
 
 class Question extends Component {
     render() {
-        const { question } = this.props;
+        const {question} = this.props;
 
         if (question === null) {
             return <p>This question doesn't exist.</p>
         }
 
-        const { name, id, avatar, optionOne, optionTwo, hasVoted } = question;
+        const {name, id, avatar, optionOne, optionTwo, hasVoted} = question;
 
         console.log(question);
 
@@ -33,9 +33,11 @@ class Question extends Component {
                                 </div>
                                 <div className='col-sm-8'>
                                     <div className='question-info'>
-                                        <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
+                                        <p className='center'>{optionOne.text}
+                                            <strong>OR</strong> {optionTwo.text}</p>
                                         <Link to={`/question/${id}`} className='center'>
-                                            <button className='btn btn-outline-primary reset-vertical-margin '>
+                                            <button
+                                                className='btn btn-outline-primary reset-vertical-margin '>
                                                 View Poll
                                             </button>
                                         </Link>
@@ -50,7 +52,7 @@ class Question extends Component {
     }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id, questionsToShow }) {
+function mapStateToProps({authedUser, users, questions}, {id, questionsToShow}) {
     const question = questions[id];
 
     return {

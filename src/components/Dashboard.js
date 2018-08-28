@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import Question from './Question';
 import {handleGetQuestions} from "../actions/questions";
 
@@ -22,7 +22,7 @@ class Dashboard extends Component {
     };
 
     render() {
-        const { questionsToShow, activeTab } = this.state;
+        const {questionsToShow, activeTab} = this.state;
 
         return (
             <div>
@@ -31,17 +31,26 @@ class Dashboard extends Component {
                         <div className='row justify-content-center'>
                             <div className='col-sm-8'>
                                 <div className='center'>
-                                    <button type='button' className={"btn btn-info " + (activeTab === 'unanswered' ? 'active' : null)} onClick={(e) => this.handleTabChange(e, 'unanswered')}>Unanswered Questions</button>
-                                    <button type='button' className={"btn btn-info " + (activeTab === 'answered' ? 'active' : null)} onClick={(e) => this.handleTabChange(e, 'answered')}>Answered Questions</button>
+                                    <button type='button'
+                                            className={"btn btn-info " + (activeTab === 'unanswered' ? 'active' : null)}
+                                            onClick={(e) => this.handleTabChange(e, 'unanswered')}>Unanswered
+                                        Questions
+                                    </button>
+                                    <button type='button'
+                                            className={"btn btn-info " + (activeTab === 'answered' ? 'active' : null)}
+                                            onClick={(e) => this.handleTabChange(e, 'answered')}>Answered
+                                        Questions
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
                         <div className='row justify-content-center'>
                             <div className='col-sm-8'>
-                                { this.props.questionIds.map((id) => {
+                                {this.props.questionIds.map((id) => {
                                     return (
-                                        <Question key={id} id={id} questionsToShow={questionsToShow} />
+                                        <Question key={id} id={id}
+                                                  questionsToShow={questionsToShow}/>
                                     )
                                 })}
                             </div>
@@ -54,7 +63,7 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps ({ questions }) {
+function mapStateToProps({questions}) {
     return {
         questionIds: Object.keys(questions)
             .sort((a, b) => questions[b].timestamp - questions[a].timestamp)

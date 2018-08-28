@@ -45,7 +45,7 @@ class NewQuestion extends Component {
         const {optionOneText, optionTwoText, toDashboard} = this.state;
 
         if (toDashboard === true) {
-            return <Redirect to='/' />;
+            return <Redirect to='/'/>;
         }
 
         return (
