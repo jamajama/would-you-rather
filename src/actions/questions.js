@@ -1,25 +1,25 @@
-import { saveQuestion, saveQuestionAnswer, getQuestions } from '../utils/api';
+import {saveQuestion, saveQuestionAnswer, getQuestions} from '../utils/api';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const ADD_QUESTION = 'ADD_QUESTION';
 
-export function receiveQuestions (questions) {
+export function receiveQuestions(questions) {
     return {
         type: RECEIVE_QUESTIONS,
         questions
     }
 }
 
-export function addQuestion (question) {
+export function addQuestion(question) {
     return {
         type: ADD_QUESTION,
         question
     }
 }
 
-export function handleAddQuestion (optionOneText, optionTwoText) {
+export function handleAddQuestion(optionOneText, optionTwoText) {
     return (dispatch, getState) => {
-        const { loggedInUser } = getState();
+        const {loggedInUser} = getState();
         const userId = loggedInUser.id;
 
         return saveQuestion({
@@ -31,9 +31,9 @@ export function handleAddQuestion (optionOneText, optionTwoText) {
     }
 }
 
-export function handleAddQuestionAnswer (questionId, answer) {
+export function handleAddQuestionAnswer(questionId, answer) {
     return (dispatch, getState) => {
-        const { loggedInUser } = getState();
+        const {loggedInUser} = getState();
         const userId = loggedInUser.id;
 
         return saveQuestionAnswer({

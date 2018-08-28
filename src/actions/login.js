@@ -1,4 +1,4 @@
-import { getUser } from '../utils/api';
+import {getUser} from '../utils/api';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
