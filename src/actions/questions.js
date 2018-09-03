@@ -19,13 +19,13 @@ export function addQuestion(question) {
 
 export function handleAddQuestion(optionOneText, optionTwoText) {
     return (dispatch, getState) => {
-        const {loggedInUser} = getState();
-        const userId = loggedInUser.id;
+        const {login} = getState();
+        const author = login.loggedInUser.id;
 
         return saveQuestion({
             optionOneText,
             optionTwoText,
-            author: userId
+            author
         })
             .then((question) => dispatch(addQuestion(question)));
     }
@@ -33,11 +33,11 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 
 export function handleAddQuestionAnswer(questionId, answer) {
     return (dispatch, getState) => {
-        const {loggedInUser} = getState();
-        const userId = loggedInUser.id;
+        const {login} = getState();
+        const authedUser = login.loggedInUser.id;
 
         return saveQuestionAnswer({
-            userId,
+            authedUser,
             qid: questionId,
             answer
         });

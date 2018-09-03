@@ -56,7 +56,6 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         )

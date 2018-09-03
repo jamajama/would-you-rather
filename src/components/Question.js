@@ -13,8 +13,6 @@ class Question extends Component {
 
         const {name, id, avatar, optionOne, optionTwo, hasVoted} = question;
 
-        console.log(question);
-
         if (this.props.questionsToShow === 'answered' && hasVoted !== true) {
             return false;
         } else if (this.props.questionsToShow === 'unanswered' && hasVoted === true) {
@@ -33,8 +31,7 @@ class Question extends Component {
                                 </div>
                                 <div className='col-sm-8'>
                                     <div className='question-info'>
-                                        <p className='center'>{optionOne.text}
-                                            <strong>OR</strong> {optionTwo.text}</p>
+                                        <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
                                         <Link to={`/question/${id}`} className='center'>
                                             <button
                                                 className='btn btn-outline-primary reset-vertical-margin '>
@@ -52,12 +49,12 @@ class Question extends Component {
     }
 }
 
-function mapStateToProps({authedUser, users, questions}, {id, questionsToShow}) {
+function mapStateToProps({login, users, questions}, {id, questionsToShow}) {
     const question = questions[id];
 
     return {
-        authedUser,
-        question: formatQuestion(question, users[question.author], authedUser),
+        authedUser: login.loggedInUser.id,
+        question: formatQuestion(question, users[question.author], login.loggedInUser.id),
         questionsToShow
     }
 }

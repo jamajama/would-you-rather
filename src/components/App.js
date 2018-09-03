@@ -7,6 +7,7 @@ import QuestionPoll from './QuestionPoll';
 import QuestionPollResults from './QuestionPollResults';
 import Navbar from './Navbar';
 import Login from './Login';
+import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute';
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
                                     <ProtectedRoute path='/new' component={NewQuestion}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <Route path="/login" exact component={withRouter(Login)}/>
+                                    <Route path="/logout" exact component={withRouter(Logout)}/>
                                 </Switch>
                             </div>
                         }

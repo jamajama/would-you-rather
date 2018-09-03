@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 
 const Navbar = (loggedInUser) => {
     return (
@@ -18,8 +18,8 @@ const Navbar = (loggedInUser) => {
 
                         <span
                             className="navbar-text margin-left-100 margin-right-25 text-info">Hello {loggedInUser.loggedInUser.name}</span>
-                        <span className="navbar-nav"><button
-                            className="btn-sm btn-info">Logout</button></span>
+                        <span className="navbar-nav"><Link to="/logout"><button
+                            className="btn-sm btn-info">Logout</button></Link></span>
                     </div>
                 </div>
             </nav>

@@ -103,7 +103,7 @@ class QuestionPoll extends Component {
     }
 }
 
-function mapStateToProps({authedUser, questions, users}, props) {
+function mapStateToProps({login, questions, users}, props) {
     const {id} = props.match.params;
     const specificQuestion = questions[id];
 
@@ -111,7 +111,7 @@ function mapStateToProps({authedUser, questions, users}, props) {
         id,
         question: specificQuestion,
         author: users[specificQuestion['author']],
-        authedUser
+        authedUser: login.loggedInUser.id
     }
 }
 

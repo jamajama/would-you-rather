@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleGetUsers} from '../actions/users';
-import {handleLoginUser} from '../actions/login';
+import {handleLoginUser} from '../actions/auth';
 
 class Login extends Component {
 
