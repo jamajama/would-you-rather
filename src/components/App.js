@@ -9,12 +9,14 @@ import Navbar from './Navbar';
 import Login from './Login';
 import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute';
+import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
     render() {
         return (
             <Router>
                 <Fragment>
+                    <LoadingBar />
                     {this.props.authenticated == null
                         ? null
                         : <Navbar loggedInUser={this.props.loggedInUser}/>
@@ -26,12 +28,12 @@ class App extends Component {
                                 <Switch>
                                     <ProtectedRoute path='/' exact component={Dashboard}
                                                     isAuthenticated={this.props.authenticated}/>
-                                    <ProtectedRoute path='/question/:id' component={QuestionPoll}
+                                    <ProtectedRoute path='/question/:id' exact component={QuestionPoll}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <ProtectedRoute path='/question/:id/results'
-                                                    component={QuestionPollResults}
+                                                    exact component={QuestionPollResults}
                                                     isAuthenticated={this.props.authenticated}/>
-                                    <ProtectedRoute path='/new' component={NewQuestion}
+                                    <ProtectedRoute path='/new' exact component={NewQuestion}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <Route path="/login" exact component={withRouter(Login)}/>
                                     <Route path="/logout" exact component={withRouter(Logout)}/>

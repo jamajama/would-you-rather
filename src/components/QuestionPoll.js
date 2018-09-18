@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {handleAddQuestionAnswer} from '../actions/questions';
+import {Redirect} from "react-router-dom";
 
 class QuestionPoll extends Component {
 
     state = {
-        optionSelected: ''
+        optionSelected: '',
+        answerSubmitted: false
     };
 
     handleSubmit(e, questionId) {
@@ -14,11 +16,17 @@ class QuestionPoll extends Component {
         const {dispatch} = this.props;
         const {optionSelected} = this.state;
 
-        dispatch(handleAddQuestionAnswer(questionId, optionSelected));
+        dispatch(handleAddQuestionAnswer(questionId, optionSelected)).then(() => {
 
-        this.setState(() => ({
-            optionSelected: ''
-        }));
+            console.log('question added...');
+
+            this.setState(() => ({
+                optionSelected: '',
+                answerSubmitted: true
+            }));
+        });
+
+
     }
 
     handleInputChange = (e) => {
@@ -30,8 +38,14 @@ class QuestionPoll extends Component {
     };
 
     render() {
-        const {optionSelected} = this.state;
+        const {optionSelected, answerSubmitted} = this.state;
         const {id, question, author} = this.props;
+
+        const redirectTo = `/question/${id}/results`;
+
+        if (answerSubmitted === true) {
+            return <Redirect to={redirectTo}/>;
+        }
 
         return (
             <div>

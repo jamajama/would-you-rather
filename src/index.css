@@ -41,8 +41,7 @@ li {
 .avatar {
     height: 100px;
     border-radius: 25px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto 10px auto;
 }
 
 .center {
@@ -229,14 +228,14 @@ li {
     margin-bottom: 30px;
 }
 
-.botto-text {
+.bottom-text {
     color: #ffffff;
     font-size: 14px;
     margin: auto;
 }
 
 .login-form .btn.btn-primary.reset {
-    background: #ff9900 none repeat scroll 0 0;
+    background: #17a2b8 none repeat scroll 0 0;
 }
 
 .back {
@@ -248,4 +247,80 @@ li {
     color: #444444;
     font-size: 13px;
     text-decoration: none;
+}
+
+.card-poll-results {
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    border: 1px solid grey;
+    color: grey;
+    text-align: center;
+}
+
+.chosen-answer {
+    background-color: #9ef1fe;
+    border: 2px solid #17a2b8;
+    color: #17a2b8 !important;
+    font-weight: bold;
+}
+
+.results-header {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: black !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.progress {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    margin-top: 1rem;
+    margin-left: 1.8rem;
+    margin-right: 1.8rem;
+    margin-bottom: 0.5rem;
+    height: 0.5rem;
+}
+
+.progress-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #5867dd;
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+.m--bg-success {
+    background-color: #34bfa3 !important;
+}
+
+.progress .progress-bar {
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.progress.m-progress--sm .progress-bar {
+    border-radius: 3px;
+}
+
+.vert-align {
+    display: flex;
+    align-items: center
 }
