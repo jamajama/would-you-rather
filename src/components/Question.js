@@ -19,6 +19,14 @@ class Question extends Component {
             return false;
         }
 
+        let viewPollLink = '';
+
+        if (this.props.questionsToShow === 'answered') {
+            viewPollLink = `/question/${id}/results`;
+        } else if (this.props.questionsToShow === 'unanswered') {
+            viewPollLink = `/question/${id}`;
+        }
+
         return (
             <div className='margin-top-10'>
                 <div className='card'>
@@ -32,7 +40,7 @@ class Question extends Component {
                                 <div className='col-sm-8'>
                                     <div className='question-info'>
                                         <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
-                                        <Link to={`/question/${id}`} className='center'>
+                                        <Link to={viewPollLink} className='center'>
                                             <button
                                                 className='btn btn-outline-primary reset-vertical-margin '>
                                                 View Poll

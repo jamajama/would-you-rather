@@ -17,9 +17,6 @@ class QuestionPoll extends Component {
         const {optionSelected} = this.state;
 
         dispatch(handleAddQuestionAnswer(questionId, optionSelected)).then(() => {
-
-            console.log('question added...');
-
             this.setState(() => ({
                 optionSelected: '',
                 answerSubmitted: true
@@ -95,7 +92,7 @@ class QuestionPoll extends Component {
                                                                 </label>
                                                             </div>
                                                             <button
-                                                                className='btn btn-outline-primary'
+                                                                className='btn btn-outline-primary m-15-top'
                                                                 type='submit'
                                                                 disabled={optionSelected === ''}
                                                             >

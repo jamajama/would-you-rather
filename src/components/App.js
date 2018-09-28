@@ -5,11 +5,12 @@ import Dashboard from './Dashboard';
 import NewQuestion from './NewQuestion';
 import QuestionPoll from './QuestionPoll';
 import QuestionPollResults from './QuestionPollResults';
+import Leaderboard from './Leaderboard';
 import Navbar from './Navbar';
 import Login from './Login';
 import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute';
-import LoadingBar from 'react-redux-loading'
+import LoadingBar from 'react-redux-loading';
 
 class App extends Component {
     render() {
@@ -33,7 +34,9 @@ class App extends Component {
                                     <ProtectedRoute path='/question/:id/results'
                                                     exact component={QuestionPollResults}
                                                     isAuthenticated={this.props.authenticated}/>
-                                    <ProtectedRoute path='/new' exact component={NewQuestion}
+                                    <ProtectedRoute path='/add' exact component={NewQuestion}
+                                                    isAuthenticated={this.props.authenticated}/>
+                                    <ProtectedRoute path='/leaderboard' exact component={Leaderboard}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <Route path="/login" exact component={withRouter(Login)}/>
                                     <Route path="/logout" exact component={withRouter(Logout)}/>

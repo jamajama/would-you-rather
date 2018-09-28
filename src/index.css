@@ -324,3 +324,24 @@ li {
     display: flex;
     align-items: center
 }
+
+.p-20-top-bottom {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.m-15-top {
+    margin-top: 15px;
+}
+
+.m-30-top {
+    margin-top: 30px;
+}
+
+.m-35-top {
+    margin-top: 35px;
+}
+
+.p-5-right {
+    padding-right: 5px;
+}

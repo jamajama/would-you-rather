@@ -10,7 +10,7 @@ const Navbar = (loggedInUser) => {
                         <ul className="navbar-nav">
                             <NavLink to='/' exact activeClassName='active'
                                      className="nav-item nav-link">Home</NavLink>
-                            <NavLink to='/new' exact activeClassName='active'
+                            <NavLink to='/add' exact activeClassName='active'
                                      className="nav-item nav-link">New Question</NavLink>
                             <NavLink to='/leaderboard' exact activeClassName='active'
                                      className="nav-item nav-link">Leaderboard</NavLink>

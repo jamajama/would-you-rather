@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {handleGetQuestions} from "../actions/questions";
+import includes from 'core-js/fn/array/includes';
 
 class QuestionPollResults extends Component {
 
@@ -11,16 +12,18 @@ class QuestionPollResults extends Component {
     render() {
         const {question, author} = this.props;
 
-        const totalVotes = question.optionOne.votes.length + question.optionTwo.votes.length;
-        let optionOneChosen = (question.optionOne.votes.indexOf(author.id) > -1);
+        let optionOneChosen = false;
         let optionTwoChosen = false;
 
+        const totalVotes = question.optionOne.votes.length + question.optionTwo.votes.length;
+        optionOneChosen = includes(question.optionOne.votes, author.id);
+
         if (!optionOneChosen) {
-            optionTwoChosen = (question.optionOne.votes.indexOf(author.id) > -1);
+            optionTwoChosen = includes(question.optionTwo.votes, author.id);
         }
 
-        let optionOneWidth = (question.optionOne.votes.length / totalVotes) * 100;
-        let optionTwoWidth = (question.optionTwo.votes.length / totalVotes) * 100;
+        let optionOneWidth = Math.round((question.optionOne.votes.length / totalVotes) * 100);
+        let optionTwoWidth = Math.round((question.optionTwo.votes.length / totalVotes) * 100);
 
         return (
             <div>
