@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import {handleGetUsers} from "../actions/users";
+import connect from "react-redux/es/connect/connect";
 
 class Leaderboard extends Component {
 
+    componentDidMount() {
+        this.props.dispatch(handleGetUsers());
+    }
+
     render() {
         const {users} = this.props;
-
-        console.log(users);
 
         let usersInfo = Object.keys(users).map((key, index) => {
             let questionsAnswered = Object.keys(users[key].answers).length;

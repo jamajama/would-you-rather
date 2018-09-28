@@ -34,6 +34,8 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 
 export function handleAddQuestionAnswer(questionId, answer) {
     return (dispatch, getState) => {
+        dispatch(showLoading());
+
         const {login} = getState();
         const authedUser = login.loggedInUser.id;
 
@@ -41,6 +43,8 @@ export function handleAddQuestionAnswer(questionId, answer) {
             authedUser,
             qid: questionId,
             answer
+        }).then(() => {
+            dispatch(hideLoading());
         });
     }
 }
