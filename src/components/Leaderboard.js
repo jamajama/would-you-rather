@@ -30,8 +30,6 @@ class Leaderboard extends Component {
             return 0;
         });
 
-        console.log(usersInfo);
-
         return (
             <div>
                 <div className='projectContainer'>

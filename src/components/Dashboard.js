@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Question from './Question';
-import {handleGetQuestions} from "../actions/questions";
 
 class Dashboard extends Component {
-
-    componentDidMount() {
-        this.props.dispatch(handleGetQuestions());
-    }
 
     state = {
         'questionsToShow': 'unanswered',

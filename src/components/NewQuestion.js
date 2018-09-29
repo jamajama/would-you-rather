@@ -7,23 +7,25 @@ class NewQuestion extends Component {
 
     state = {
         optionOneText: '',
-        optionTwoText: ''
+        optionTwoText: '',
+        toDashboard: false,
+        hasSubmitted: false
     };
 
     handleOptionOneTextChange = (e) => {
         const text = e.target.value;
 
-        this.setState(() => ({
+        this.setState({
             optionOneText: text
-        }));
+        });
     };
 
     handleOptionTwoTextChange = (e) => {
         const text = e.target.value;
 
-        this.setState(() => ({
+        this.setState({
             optionTwoText: text
-        }));
+        });
     };
 
     handleSubmit = (e) => {
@@ -32,17 +34,28 @@ class NewQuestion extends Component {
         const {optionOneText, optionTwoText} = this.state;
         const {dispatch} = this.props;
 
-        dispatch(handleAddQuestion(optionOneText, optionTwoText));
+        this.setState({
+            hasSubmitted: true
+        });
 
-        this.setState(() => ({
-            optionOneText: '',
-            optionTwoText: '',
-            toDashboard: true
+        dispatch(handleAddQuestion(optionOneText, optionTwoText, () => {
+            this.setState({
+                optionOneText: '',
+                optionTwoText: '',
+                toDashboard: true
+            });
         }));
     };
 
     render() {
-        const {optionOneText, optionTwoText, toDashboard} = this.state;
+        const {
+            optionOneText,
+            optionTwoText,
+            toDashboard,
+            hasSubmitted
+        } = this.state;
+
+        console.log(toDashboard);
 
         if (toDashboard === true) {
             return <Redirect to='/'/>;
@@ -60,9 +73,9 @@ class NewQuestion extends Component {
                                         <div className='container'>
                                             <div className='row justify-content-center p-20-top-bottom'>
                                                 <div className='col-sm-12'>
+                                                    <p><strong>Would You Rather...?</strong></p>
                                                     <form onSubmit={this.handleSubmit}>
                                                         <div className='form-group'>
-                                                            <label><strong>Option One</strong></label>
                                                             <input
                                                                 className='form-control'
                                                                 placeholder='Enter option one text here...'
@@ -71,7 +84,6 @@ class NewQuestion extends Component {
                                                             />
                                                         </div>
                                                         <div className='form-group'>
-                                                            <label><strong>Option Two</strong></label>
                                                             <input
                                                                 className='form-control'
                                                                 placeholder='Enter option two text here...'
@@ -79,9 +91,16 @@ class NewQuestion extends Component {
                                                                 onChange={this.handleOptionTwoTextChange}
                                                             />
                                                         </div>
-                                                        <input type='submit' name='submit' id='submit' value='Submit'
+                                                        <input type='submit'
+                                                               name='submit'
+                                                               id='submit'
+                                                               value={hasSubmitted ? "Submitting Question..." : "Submit"}
                                                                className='btn btn-outline-primary'
-                                                               disabled={optionOneText === '' || optionTwoText === ''} />
+                                                               disabled={
+                                                                   optionOneText === '' ||
+                                                                   optionTwoText === '' ||
+                                                                   hasSubmitted
+                                                               } />
                                                     </form>
                                                 </div>
                                             </div>

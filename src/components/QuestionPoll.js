@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {handleAddQuestionAnswer} from '../actions/questions';
 import {Redirect} from "react-router-dom";
+import PageNotFound from "./PageNotFound";
 
 class QuestionPoll extends Component {
 
@@ -16,14 +17,12 @@ class QuestionPoll extends Component {
         const {dispatch} = this.props;
         const {optionSelected} = this.state;
 
-        dispatch(handleAddQuestionAnswer(questionId, optionSelected)).then(() => {
-            this.setState(() => ({
-                optionSelected: '',
-                answerSubmitted: true
-            }));
-        });
+        dispatch(handleAddQuestionAnswer(questionId, optionSelected));
 
-
+        this.setState(() => ({
+            optionSelected: '',
+            answerSubmitted: true
+        }));
     }
 
     handleInputChange = (e) => {
@@ -36,7 +35,11 @@ class QuestionPoll extends Component {
 
     render() {
         const {optionSelected, answerSubmitted} = this.state;
-        const {id, question, author} = this.props;
+        const {id, question, author, pageNotFound} = this.props;
+
+        if (pageNotFound === true) {
+            return <PageNotFound/>;
+        }
 
         const redirectTo = `/question/${id}/results`;
 
@@ -114,15 +117,34 @@ class QuestionPoll extends Component {
     }
 }
 
-function mapStateToProps({login, questions, users}, props) {
+function mapStateToProps({login, questions, users, match}, props) {
+
+    console.log(props);
+
     const {id} = props.match.params;
-    const specificQuestion = questions[id];
+
+    console.log(id);
+
+    let pageNotFound = true;
+    let author = "";
+    let specificQuestion = "";
+
+    console.log(questions[id]);
+
+    if (questions[id] !== undefined) {
+        pageNotFound = false;
+        specificQuestion = questions[id];
+        author = users[specificQuestion['author']];
+    }
+
+    console.log(specificQuestion);
 
     return {
         id,
         question: specificQuestion,
-        author: users[specificQuestion['author']],
-        authedUser: login.loggedInUser.id
+        author: author,
+        authedUser: login.loggedInUser.id,
+        pageNotFound: pageNotFound
     }
 }
 

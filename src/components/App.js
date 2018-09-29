@@ -11,8 +11,14 @@ import Login from './Login';
 import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute';
 import LoadingBar from 'react-redux-loading';
+import PageNotFound from './PageNotFound';
+import {handleGetQuestions} from "../actions/questions";
 
 class App extends Component {
+    componentDidMount() {
+        this.props.dispatch(handleGetQuestions());
+    }
+
     render() {
         return (
             <Router>
@@ -29,10 +35,10 @@ class App extends Component {
                                 <Switch>
                                     <ProtectedRoute path='/' exact component={Dashboard}
                                                     isAuthenticated={this.props.authenticated}/>
-                                    <ProtectedRoute path='/question/:id' exact component={QuestionPoll}
+                                    <ProtectedRoute path='/question/:id' exact component={connect(mapStateToProps)(QuestionPoll)}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <ProtectedRoute path='/question/:id/results'
-                                                    exact component={QuestionPollResults}
+                                                    exact component={connect(mapStateToProps)(QuestionPollResults)}
                                                     isAuthenticated={this.props.authenticated}/>
                                     <ProtectedRoute path='/add' exact component={NewQuestion}
                                                     isAuthenticated={this.props.authenticated}/>
@@ -40,6 +46,7 @@ class App extends Component {
                                                     isAuthenticated={this.props.authenticated}/>
                                     <Route path="/login" exact component={withRouter(Login)}/>
                                     <Route path="/logout" exact component={withRouter(Logout)}/>
+                                    <Route component={PageNotFound} />
                                 </Switch>
                             </div>
                         }

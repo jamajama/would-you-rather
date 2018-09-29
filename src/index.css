@@ -345,3 +345,12 @@ li {
 .p-5-right {
     padding-right: 5px;
 }
+
+.page-not-found-image-container {
+    margin-top: 100px;
+}
+
+.page-not-found-image {
+    height: 200px;
+    filter: grayscale(100%);
+}

@@ -26,11 +26,12 @@ class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        this.props.dispatch(handleLoginUser(this.state.userSelected));
+        const {dispatch} = this.props;
+
+        dispatch(handleLoginUser(this.state.userSelected));
     };
 
     render() {
-
         if (this.props.loading === true || !this.props.users) {
             return <div/>;
         }
@@ -53,7 +54,7 @@ class Login extends Component {
                                 <h2>Login</h2>
                                 <p>Please select a user to log in as.</p>
                             </div>
-                            <form id="Login">
+                            <form id="Login" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <select className="form-control" id="userId"
                                             onChange={(e) => this.handleChange(e)}>
@@ -67,9 +68,7 @@ class Login extends Component {
                                     </select>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary"
-                                        onClick={(e) => this.handleSubmit(e)}>Login
-                                </button>
+                                <button type="submit" className="btn btn-primary" disabled={this.state.userSelected === ''}>Login</button>
                             </form>
                         </div>
                     </div>

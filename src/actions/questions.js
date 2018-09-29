@@ -18,7 +18,7 @@ export function addQuestion(question) {
     }
 }
 
-export function handleAddQuestion(optionOneText, optionTwoText) {
+export function handleAddQuestion(optionOneText, optionTwoText, callback) {
     return (dispatch, getState) => {
         const {login} = getState();
         const author = login.loggedInUser.id;
@@ -28,7 +28,8 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
             optionTwoText,
             author
         })
-            .then((question) => dispatch(addQuestion(question)));
+            .then((question) => dispatch(addQuestion(question)))
+            .then(callback);
     }
 }
 
