@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {handleAddQuestionAnswer} from '../actions/questions';
+import {handleAddQuestionAnswer} from '../actions/shared';
 import {Redirect} from "react-router-dom";
 import PageNotFound from "./PageNotFound";
 
@@ -118,26 +118,17 @@ class QuestionPoll extends Component {
 }
 
 function mapStateToProps({login, questions, users, match}, props) {
-
-    console.log(props);
-
     const {id} = props.match.params;
-
-    console.log(id);
 
     let pageNotFound = true;
     let author = "";
     let specificQuestion = "";
-
-    console.log(questions[id]);
 
     if (questions[id] !== undefined) {
         pageNotFound = false;
         specificQuestion = questions[id];
         author = users[specificQuestion['author']];
     }
-
-    console.log(specificQuestion);
 
     return {
         id,

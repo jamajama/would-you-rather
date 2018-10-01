@@ -1,61 +1,60 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {formatQuestion} from "../utils/helpers";
 import {Link} from 'react-router-dom';
 
-class Question extends Component {
-    render() {
-        const {question} = this.props;
+const Question = (props) => {
+    const {question} = props;
 
-        if (question === null) {
-            return <p>This question doesn't exist.</p>
-        }
+    if (question === null) {
+        return <p>This question doesn't exist.</p>
+    }
 
-        const {name, id, avatar, optionOne, optionTwo, hasVoted} = question;
+    const {name, id, avatar, optionOne, optionTwo, hasVoted} = question;
 
-        if (this.props.questionsToShow === 'answered' && hasVoted !== true) {
-            return false;
-        } else if (this.props.questionsToShow === 'unanswered' && hasVoted === true) {
-            return false;
-        }
+    if (props.questionsToShow === 'answered' && hasVoted !== true) {
+        return false;
+    } else if (props.questionsToShow === 'unanswered' && hasVoted === true) {
+        return false;
+    }
 
-        let viewPollLink = '';
+    let viewPollLink = '';
 
-        if (this.props.questionsToShow === 'answered') {
-            viewPollLink = `/question/${id}/results`;
-        } else if (this.props.questionsToShow === 'unanswered') {
-            viewPollLink = `/question/${id}`;
-        }
+    if (props.questionsToShow === 'answered') {
+        viewPollLink = `/question/${id}/results`;
+    } else if (props.questionsToShow === 'unanswered') {
+        viewPollLink = `/question/${id}`;
+    }
 
-        return (
-            <div className='margin-top-10'>
-                <div className='card'>
-                    <div className='card-header bold'>{name} asks would you rather...</div>
-                    <div className='card-body'>
-                        <div className='container'>
-                            <div className='row justify-content-center'>
-                                <div className='col-sm-4 border-right center'>
-                                    <img src={avatar} alt={`Avatar of ${name}`} className='avatar'/>
-                                </div>
-                                <div className='col-sm-8'>
-                                    <div className='question-info'>
-                                        <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
-                                        <Link to={viewPollLink} className='center'>
-                                            <button
-                                                className='btn btn-outline-primary reset-vertical-margin '>
-                                                View Poll
-                                            </button>
-                                        </Link>
-                                    </div>
+    return (
+        <div className='margin-top-10'>
+            <div className='card'>
+                <div className='card-header bold'>{name} asks would you rather...</div>
+                <div className='card-body'>
+                    <div className='container'>
+                        <div className='row justify-content-center'>
+                            <div className='col-sm-4 border-right center'>
+                                <img src={avatar} alt={`Avatar of ${name}`} className='avatar'/>
+                            </div>
+                            <div className='col-sm-8'>
+                                <div className='question-info'>
+                                    <p className='center'>{optionOne.text} <strong>OR</strong> {optionTwo.text}</p>
+                                    <Link to={viewPollLink} className='center'>
+                                        <button
+                                            className='btn btn-outline-primary reset-vertical-margin '>
+                                            View Poll
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+        </div>
+    )
+};
+
 
 function mapStateToProps({login, users, questions}, {id, questionsToShow}) {
     const question = questions[id];

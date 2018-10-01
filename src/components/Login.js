@@ -6,7 +6,6 @@ import {handleLoginUser} from '../actions/auth';
 import LoadingBar from "react-redux-loading";
 
 class Login extends Component {
-
     state = {
         userSelected: ''
     };
