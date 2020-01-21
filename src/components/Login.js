@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {handleGetUsers} from '../actions/users';
+import {loadInitialUsers} from '../actions/users';
 import {handleLoginUser} from '../actions/auth';
 import LoadingBar from "react-redux-loading";
 
@@ -11,7 +11,7 @@ class Login extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(handleGetUsers());
+        this.props.dispatch(loadInitialUsers());
     }
 
     handleChange = (e) => {
@@ -25,20 +25,21 @@ class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const {dispatch} = this.props;
+        const { userSelected } = this.state;
 
-        dispatch(handleLoginUser(this.state.userSelected));
+        this.props.dispatch(handleLoginUser(userSelected));
     };
 
     render() {
-        if (this.props.loading === true || !this.props.users) {
+
+        const { loading, users, isAuthed } = this.props;
+
+        if (loading === true || !users) {
             return <div/>;
         }
 
-        const {from} = this.props.location.state || {from: {pathname: '/'}};
-
-        if (this.props.isAuthed) {
-            return <Redirect to={from}/>;
+        if (isAuthed) {
+            return <Redirect to="/"/>;
         }
 
         return (
@@ -46,11 +47,13 @@ class Login extends Component {
                 <LoadingBar />
                 <div className="container">
 
+
                     <h1 className="form-heading">Login Form</h1>
                     <div className="login-form">
                         <div className="main-div">
                             <div className="panel">
-                                <h2>Login</h2>
+                                <h3>Login</h3>
+                                <h2>Would you Rather Project</h2>
                                 <p>Please select a user to log in as.</p>
                             </div>
                             <form id="Login" onSubmit={this.handleSubmit}>
@@ -59,15 +62,15 @@ class Login extends Component {
                                             onChange={(e) => this.handleChange(e)}>
                                         <option></option>
                                         {
-                                            Object.keys(this.props.users).map((user) => {
-                                                return <option key={this.props.users[user].id}
-                                                               value={this.props.users[user].id}>{this.props.users[user].name}</option>
+                                            Object.keys(users).map((user) => {
+                                                return <option key={users[user].id}
+                                                               value={users[user].id}>{users[user].name}</option>
                                             })
                                         }
                                     </select>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary" disabled={this.state.userSelected === ''}>Login</button>
+                                <button type="submit" className="login-btn login-bg-r login-b" disabled={this.state.userSelected === ''}>Login</button>
                             </form>
                         </div>
                     </div>

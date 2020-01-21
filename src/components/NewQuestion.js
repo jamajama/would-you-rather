@@ -32,13 +32,12 @@ class NewQuestion extends Component {
         e.preventDefault();
 
         const {optionOneText, optionTwoText} = this.state;
-        const {dispatch} = this.props;
 
         this.setState({
             hasSubmitted: true
         });
 
-        dispatch(handleAddQuestion(optionOneText, optionTwoText, () => {
+        this.props.dispatch(handleAddQuestion(optionOneText, optionTwoText, () => {
             this.setState({
                 optionOneText: '',
                 optionTwoText: '',
@@ -76,7 +75,7 @@ class NewQuestion extends Component {
                                                         <div className='form-group'>
                                                             <input
                                                                 className='form-control'
-                                                                placeholder='Enter option one text here...'
+                                                                placeholder='Enter option one text here'
                                                                 value={optionOneText}
                                                                 onChange={this.handleOptionOneTextChange}
                                                             />
@@ -84,7 +83,7 @@ class NewQuestion extends Component {
                                                         <div className='form-group'>
                                                             <input
                                                                 className='form-control'
-                                                                placeholder='Enter option two text here...'
+                                                                placeholder='Enter option two text here'
                                                                 value={optionTwoText}
                                                                 onChange={this.handleOptionTwoTextChange}
                                                             />

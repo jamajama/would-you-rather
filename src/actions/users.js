@@ -28,7 +28,7 @@ export function addUserQuestionAnswer(authedUser, questionId, selectedOption) {
     }
 }
 
-export function handleGetUsers() {
+export function loadInitialUsers() {
     return (dispatch) => {
         dispatch(showLoading());
         return getUsers()

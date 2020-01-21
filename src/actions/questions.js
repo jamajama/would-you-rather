@@ -28,7 +28,7 @@ export function addQuestionAnswer(authedUser, questionId, selectedOption) {
     }
 }
 
-export function handleGetQuestions() {
+export function loadInitialQuestions() {
     return (dispatch) => {
         dispatch(showLoading());
         return getQuestions()

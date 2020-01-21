@@ -57,6 +57,7 @@ const Question = (props) => {
 
 
 function mapStateToProps({login, users, questions}, {id, questionsToShow}) {
+
     const question = questions[id];
 
     return {
